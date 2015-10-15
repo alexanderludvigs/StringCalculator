@@ -45,3 +45,12 @@ Try not to read ahead – do one task at a time. Work incrementally.
 > It is recommended that you practice you TDD skills by redoing this exercise several times or other TDD katas (search for TDD Kata). You can try to do as many steps as you can in a 60 minute period. I recommend that you try the kata again from scratch until you can complete the entire thing within 30 minutes. **In this exercise you need to finish all steps.**
 
 
+## Set up
+
+** How to Build and Test **
+in StringCalculator folder execute the following: 
+sh ./bin/build_and_test
+
+
+
+

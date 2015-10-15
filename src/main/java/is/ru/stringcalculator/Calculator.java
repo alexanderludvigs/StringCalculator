@@ -3,6 +3,10 @@ package is.ru.stringcalculator;
 public class Calculator {
 
 	public static int add(String text){
+		
+		/* Replace "\n" with "," */
+		text = text.replace("\n", ",");
+
 		if(text.equals("")){
 			return 0;
 		}
