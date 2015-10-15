@@ -34,17 +34,7 @@ public class Calculator {
 
 			/* Check for negative integers */
 			if (containsNegatives(text) == true) {
-				String toReturn = "Negatives not allowed: ";
-
-				for (String item : splitNumbers(text)) {
-					if (toInt(item) < 0) {
-						toReturn = toReturn + item + ",";
-					}
-				}
-				/* remove last comma from string */
-				toReturn = toReturn.substring(0, toReturn.length()-1);
-				/* Throw final negative msg */
-				throw new Exception(toReturn);
+				handlingNegatives(text);
 			}
 
 			return sum(splitNumbers(text));
@@ -81,6 +71,21 @@ public class Calculator {
     		}
     	}
     	return false;
+    }
+
+    private static void handlingNegatives(String numbers) throws Exception {
+
+		String toReturn = "Negatives not allowed: ";
+
+		for (String item : splitNumbers(numbers)) {
+			if (toInt(item) < 0) {
+				toReturn = toReturn + item + ",";
+			}
+		}
+		/* remove last comma from string */
+		toReturn = toReturn.substring(0, toReturn.length()-1);
+		/* Throw final negative msg */
+		throw new Exception(toReturn);
     }
 
     private static void errorMsg(String text) {
