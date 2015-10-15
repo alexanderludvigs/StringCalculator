@@ -33,4 +33,16 @@ public class CalculatorTest {
     public void testNewLinesInAString() {
     	assertEquals(6, Calculator.add("1\n2,3"));
     }
+
+    @Test
+    public void testStringEndsWithNewLine() {
+    	assertEquals(-1, Calculator.add("1,\n"));
+    }
+
+    @Test
+    public void testStringStartsWithNewLine() {
+    	assertEquals(-1, Calculator.add("\n,2,3"));
+    }
+
+    
 }

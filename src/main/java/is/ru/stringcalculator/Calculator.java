@@ -4,8 +4,15 @@ public class Calculator {
 
 	public static int add(String text){
 		
-		/* Replace "\n" with "," */
-		text = text.replace("\n", ",");
+		if (text.contains("\n")) {
+			if (text.endsWith("\n") || text.startsWith("\n")) {
+				errorMsg("invalid input");
+				return -1;
+			} 
+
+			/* Replace "\n" with "," */
+			text = text.replace("\n", ",");
+		}
 
 		if(text.equals("")){
 			return 0;
@@ -33,6 +40,9 @@ public class Calculator {
 		return total;
     }
 
+    private static void errorMsg(String text) {
+    	System.out.println("Error: " + text);
+    }
 
 
 }
