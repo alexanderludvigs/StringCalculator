@@ -10,47 +10,56 @@ public class CalculatorTest {
     }
 
 	@Test
-	public void testEmptyString() {
+	public void testEmptyString() throws Exception {
 		assertEquals(0, Calculator.add(""));
 	}
 
 	@Test
-	public void testOneNumber() {
+	public void testOneNumber() throws Exception {
 		assertEquals(1, Calculator.add("1"));
 	}
 
 	@Test
-	public void testTwoNumbers() {
+	public void testTwoNumbers() throws Exception{
 		assertEquals(3, Calculator.add("1,2"));
 	}	
 
 	@Test
-    public void testMultipleNumbers(){
+    public void testMultipleNumbers() throws Exception {
     	assertEquals(6, Calculator.add("1,2,3"));
     }
 
     @Test
-    public void testNewLinesInAString() {
+    public void testNewLinesInAString() throws Exception {
     	assertEquals(6, Calculator.add("1\n2,3"));
     }
 
     @Test
-    public void testStringEndsWithNewLine() {
+    public void testStringEndsWithNewLine() throws Exception {
     	assertEquals(-1, Calculator.add("1,\n"));
     }
 
     @Test
-    public void testStringStartsWithNewLine() {
+    public void testStringStartsWithNewLine() throws Exception {
     	assertEquals(-1, Calculator.add("\n,2,3"));
     }
 
     @Test 
-    public void testDifferentDelimiter() {
+    public void testDifferentDelimiter() throws Exception {
     	assertEquals(3, Calculator.add("//;\n1;2"));
     }
 
+    @Test 
+    public void testNegativeNumbersException() throws Exception {
+    	try {
+    		Calculator.add("-1,2");
+    	} catch (Exception e) {
+    		String expectedMsg = "Negatives not allowed: -1";
+    		assertEquals(expectedMsg, e.getMessage());
+    	}
+    }
 
-
-
+    
+    
 
 }

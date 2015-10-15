@@ -2,8 +2,9 @@ package is.ru.stringcalculator;
 
 public class Calculator {
 
-	public static int add(String text){
-		/* Delimiter part: */
+	public static int add(String text) throws Exception {
+		/* Delimiter part */
+
 		if (text.startsWith("//")) {
 			/* we have a delimiter */
 			/* "//[delimiter]\n[numbers]" */
@@ -13,8 +14,9 @@ public class Calculator {
 			return sum(splitNumbersWithDelimiter(text, delimiter));	
 		}
 
+		/* Numbers part */
 
-		/* Numbers part: */
+
 		if (text.contains("\n")) {
 			if (text.endsWith("\n") || text.startsWith("\n")) {
 				errorMsg("invalid input");
@@ -29,6 +31,22 @@ public class Calculator {
 			return 0;
 		}
 		else if(text.contains(",")){
+
+			/* Check for negative integers */
+			if (containsNegatives(text) == true) {
+				String toReturn = "Negatives not allowed: ";
+
+				for (String item : splitNumbers(text)) {
+					if (toInt(item) < 0) {
+						toReturn = toReturn + item + ",";
+					}
+				}
+				/* remove last comma from string */
+				toReturn = toReturn.substring(0, toReturn.length()-1);
+				/* Throw final negative msg */
+				throw new Exception(toReturn);
+			}
+
 			return sum(splitNumbers(text));
 		}
 		else
@@ -53,6 +71,16 @@ public class Calculator {
 		    total += toInt(number);
 		}
 		return total;
+    }
+
+    private static boolean containsNegatives(String numbers) {
+
+    	for (String item : splitNumbers(numbers)) {
+    		if (toInt(item) < 0) {
+    			return true; 
+    		}
+    	}
+    	return false;
     }
 
     private static void errorMsg(String text) {
