@@ -59,7 +59,15 @@ public class CalculatorTest {
     	}
     }
 
-    
-    
+	@Test 
+    public void testNegativeNumbersException2() throws Exception {
+    	try {
+    		Calculator.add("2,-4,3,-5");
+    	} catch (Exception e) {
+    		String expectedMsg = "Negatives not allowed: -4,-5";
+    		assertEquals(expectedMsg, e.getMessage());
+    	}
+    }    
+
 
 }
