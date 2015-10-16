@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Calculator {
 
 	public static int add(String text) throws Exception {
-		/* Delimiter part */
+		/* if optional Delimiter is present */
 		String delimiter = "";
 
 		/* Check for optional delimiter */
@@ -15,16 +15,13 @@ public class Calculator {
 			/* Check for delimiter longer than 1 char */
 			if (text.startsWith("//[")) {
 
-				/* get all delimiters of the string */
-				//delimiter = text.substring(3, text.indexOf("]"));
-				/* we want everything between [ .. ] */
+				/* get all delimiters of the string , we want 
+				   everything between brackets [ .. ] */
 				Matcher m = Pattern.compile("\\[(.*?)\\]").matcher(text);
 		        while (m.find()) {
-		        	/* gives us [symbol], so we have to get rid of brackets */
-		    	   	//delimiter = delimiter + m.group().substring(1, m.group().indexOf("]"));
 		        	delimiter = delimiter + m.group();
 		        }
-
+		        /* gives us [delimiter], so we have to get rid of brackets */
 		        delimiter = delimiter.replace("[", "").replace("]", "");
 
 		   		/* the "splitter" we want to return */
@@ -41,7 +38,7 @@ public class Calculator {
 			return sum(splitNumbersWithDelimiter(text, delimiter));	
 		}
 
-		/* Numbers part */
+		/* if NO optional Delimiter */
 
 		if (text.contains("\n")) {
 			if (text.endsWith("\n") || text.startsWith("\n")) {
@@ -78,10 +75,9 @@ public class Calculator {
 	}
 
 	private static String[] splitNumbersWithDelimiter(String numbers, String delimiter ) {
-	    //return numbers.split(Pattern.quote(delimiter));
 	    return numbers.split(delimiter);
 	}
-     
+    
     public static boolean isNumeric(String str) {  
     	try {  
 			double d = Double.parseDouble(str);  
