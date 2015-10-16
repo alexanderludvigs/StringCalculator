@@ -25,9 +25,8 @@ public class Calculator {
 		        	delimiter = delimiter + m.group();
 		        }
 
-		       	System.out.println(delimiter);
 		        delimiter = delimiter.replace("[", "").replace("]", "");
-		        System.out.println(delimiter);
+
 		   		/* the "splitter" we want to return */
 		        delimiter = "[" + delimiter + "]";
 

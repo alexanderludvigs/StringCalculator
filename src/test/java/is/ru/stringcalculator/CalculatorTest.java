@@ -92,4 +92,9 @@ public class CalculatorTest {
     	assertEquals(10, Calculator.add("//[***][%%][$]\n1***2%%3$4"));
     }
 
+    @Test
+    public void testMultiDelimitersWithAnyLength2() throws Exception {
+    	assertEquals(11, Calculator.add("//[$][%%][***][#]\n1#1***2%%3$4"));
+    }
+
 }
