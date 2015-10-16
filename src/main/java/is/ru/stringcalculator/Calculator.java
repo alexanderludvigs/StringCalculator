@@ -1,6 +1,8 @@
 package is.ru.stringcalculator;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Calculator {
 
@@ -12,8 +14,23 @@ public class Calculator {
 		if (text.startsWith("//")) {
 			/* Check for delimiter longer than 1 char */
 			if (text.startsWith("//[")) {
-				/* get delimiter part of string */
-				delimiter = text.substring(3, text.indexOf("]"));
+
+				/* get all delimiters of the string */
+				//delimiter = text.substring(3, text.indexOf("]"));
+				/* we want everything between [ .. ] */
+				Matcher m = Pattern.compile("\\[(.*?)\\]").matcher(text);
+		        while (m.find()) {
+		        	/* gives us [symbol], so we have to get rid of brackets */
+		    	   	//delimiter = delimiter + m.group().substring(1, m.group().indexOf("]"));
+		        	delimiter = delimiter + m.group();
+		        }
+
+		       	System.out.println(delimiter);
+		        delimiter = delimiter.replace("[", "").replace("]", "");
+		        System.out.println(delimiter);
+		   		/* the "splitter" we want to return */
+		        delimiter = "[" + delimiter + "]";
+
 				/* get numbers part of string */
 				text = text.substring(text.indexOf("\n")+1, text.length());
 
@@ -21,7 +38,7 @@ public class Calculator {
 			}
 			delimiter = text.substring(2, text.indexOf("\n"));
 			text = text.substring(text.indexOf("\n")+1, text.length());
-			
+
 			return sum(splitNumbersWithDelimiter(text, delimiter));	
 		}
 
@@ -62,12 +79,30 @@ public class Calculator {
 	}
 
 	private static String[] splitNumbersWithDelimiter(String numbers, String delimiter ) {
-	    return numbers.split(Pattern.quote(delimiter));
+	    //return numbers.split(Pattern.quote(delimiter));
+	    return numbers.split(delimiter);
 	}
-      
+     
+    public static boolean isNumeric(String str) {  
+    	try {  
+			double d = Double.parseDouble(str);  
+		} catch(NumberFormatException nfe) {  
+			return false;  
+		}  
+		return true;  
+    }  
+
     private static int sum(String[] numbers){
+ 	    ArrayList<String> temp = new ArrayList<String>(); 
+		/* we only want numbers */	
+		for (String item : numbers) {
+			if (isNumeric(item)) {
+				temp.add(item);
+			}
+		}
+
  	    int total = 0;
-        for(String number : numbers) {
+        for(String number : temp) {
         	/* we only do numbers below 1000 */
 		    if (toInt(number) <= 1000) {
 		    	total += toInt(number);

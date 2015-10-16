@@ -3,6 +3,7 @@ package is.ru.stringcalculator;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.Arrays;
 
 public class CalculatorTest {
@@ -82,7 +83,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void testLongerDelimiter() throws Exception {
+    public void testMultiDelimiters() throws Exception {
     	assertEquals(6, Calculator.add("//[*][%]\n1*2%3"));
     }
 
