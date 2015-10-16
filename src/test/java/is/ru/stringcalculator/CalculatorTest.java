@@ -2,6 +2,8 @@ package is.ru.stringcalculator;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import java.util.regex.Pattern;
+import java.util.Arrays;
 
 public class CalculatorTest {
 
@@ -72,6 +74,11 @@ public class CalculatorTest {
     @Test 
     public void testNumbersBiggerthan1000() throws Exception {
     	assertEquals(2, Calculator.add("1001,2"));
+    }
+
+    @Test 
+    public void testLongerDelimiter() throws Exception {
+    	assertEquals(6, Calculator.add("//[***]\n1***2***3"));
     }
 
 }

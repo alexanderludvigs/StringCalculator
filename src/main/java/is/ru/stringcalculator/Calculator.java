@@ -1,21 +1,31 @@
 package is.ru.stringcalculator;
+import java.util.regex.Pattern;
+import java.util.Arrays;
 
 public class Calculator {
 
 	public static int add(String text) throws Exception {
 		/* Delimiter part */
+		String delimiter = "";
 
+		/* Check for optional delimiter */
 		if (text.startsWith("//")) {
-			/* we have a delimiter */
-			/* "//[delimiter]\n[numbers]" */
-			String delimiter = text.substring(2, text.indexOf("\n"));
+			/* Check for delimiter longer than 1 char */
+			if (text.startsWith("//[")) {
+				/* get delimiter part of string */
+				delimiter = text.substring(3, text.indexOf("]"));
+				/* get numbers part of string */
+				text = text.substring(text.indexOf("\n")+1, text.length());
+
+				return sum(splitNumbersWithDelimiter(text, delimiter));	
+			}
+			delimiter = text.substring(2, text.indexOf("\n"));
 			text = text.substring(text.indexOf("\n")+1, text.length());
 			
 			return sum(splitNumbersWithDelimiter(text, delimiter));	
 		}
 
 		/* Numbers part */
-
 
 		if (text.contains("\n")) {
 			if (text.endsWith("\n") || text.startsWith("\n")) {
@@ -52,12 +62,13 @@ public class Calculator {
 	}
 
 	private static String[] splitNumbersWithDelimiter(String numbers, String delimiter ) {
-	    return numbers.split(delimiter);
+	    return numbers.split(Pattern.quote(delimiter));
 	}
       
     private static int sum(String[] numbers){
  	    int total = 0;
-        for(String number : numbers){
+        for(String number : numbers) {
+        	/* we only do numbers below 1000 */
 		    if (toInt(number) <= 1000) {
 		    	total += toInt(number);
 		    }
